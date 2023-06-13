@@ -1,0 +1,196 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+/*  🥕 ROOT */
+
+:root {
+
+/* custom properties : colors */                      /* use LCH + RGB/HEX as fallback? */
+--color-highlights: rgba(255, 102, 0, 1);           /* lch(63.16% 92.37070781677318 51.855374033469694)*/
+
+--color-logo-blue:rgba(20, 78, 195, 1);             /* lch(35.84% 70.1 286.06) */
+--color-logo-orange:rgba(250, 156, 4, 1);           /* lch(72.96% 82.37 68.68) */
+
+--background-color:rgba(238, 239, 244, 1);          /* lch(94.48% 2.57 277.27) */
+
+--color-text: rgba(11, 43, 123, 1);                 /* lch(20.07% 52.14 288.21) */
+--color-light-text: rgb(255, 255, 255);            /*lch (100% 0 0)*/
+
+--color-available:rgb(150, 207, 74);                /* lch(77.24% 66.92 120.86)*/
+--color-unavailable:rgb(254, 0, 0);                 /* lch(54.08% 106.52 40.86) */
+
+/* custom properties : text */ 
+--text-p-font-size: font-size: 16px;
+--text-p-font-weight: font-weight: 600;
+--text-p-line-height: line-height: 19px;
+
+/* 
+--text-h1-font-size:;
+--text-h1-font-weight:;
+--text-h1-line-height:;
+--text-h2-font-size: font-size: 24px; 
+--text-h2-font-weight: font-weight: 600;
+--text-h2-line-height: line-height: 1.1;
+*/
+
+
+}
+
+body {
+    background: var(--background-color);
+    width: 100%;
+    height: auto;
+}
+
+h1 {
+    display:flex;
+    justify-content:center;
+    color: var(--color-text);
+    margin: 1rem;
+}
+
+
+/*  🧠 HEADER */
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em 2em;
+    background-color: var(--color-light-text);
+}
+
+header a {
+    padding: 1em;
+    color:var(--color-text);
+    font-size: var(--text-p-font-size);
+    font-weight: var(--text-p-font-weight);
+    line-height: var(--text-p-line-height);
+    text-decoration: none;
+}
+
+header a:hover {
+    color: var(--color-highlights);
+    text-decoration: none;
+}
+
+/*  🔍 FORM: SEARCH AVAILABILITY */
+
+/* .wrapper-form-availability{} */
+
+/* .form-availability {} */
+
+.wrapper-form-fields:has(.search-field) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 1rem;
+    grid-gap: 1rem;
+    text-align: center;
+    padding: 20px;
+}
+
+.form-availability div {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper-search-button input {
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    background-color: var(--color-highlights);
+    color: var(--color-button-text);
+    border-color: var(--color-logo-orange);
+}
+
+.wrapper-search-button input:hover{
+    background-color: var(--color-logo-orange);
+    border-color: var(--color-highlights);
+}
+
+
+/* 📊 SEARCH RESULT TABLE */
+
+table {
+    width:100%;
+    height: auto;
+    margin: 2rem 0;
+    background-color: var(--color-light-text);
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    -webkit-border-horizontal-spacing: 1px;
+    -webkit-border-vertical-spacing: 1px;
+}
+
+:is(thead, tbody):has(tr, th, td) {
+    padding: 2rem;
+}
+
+/* .wrapper-table-search-results {} */
+
+.table-search-results {
+    container-type: size;
+    display: flex;
+    flex-direction: row;
+}
+
+.search-results-accommodation-dates {
+    margin-right: 2rem;
+}
+
+.search-results-accommodation-info {
+    margin-left: 2rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* CONTAINER/MEDIA QUERIES */
+
+/* M screen form:
+/* grid search field -> 1fr 1fr (2 columns)
+/* 
+/* M screen table:
+/* breakpoint @media? / @container?
+/* acco info (left) = 2 columns, data divided.
+/* datum info (right) =  1 column under acco info : data per 2w + nav next/prev w.
+/*
+/* If table container is smaller than ...px = 
+/* @container (max-width: ...px) {
+/* .table-search-results {
+/*      display: flex;
+/*      flex-direction: column;
+/*      align-items: baseline;
+/*    }
+/*  }
+*/ 
+
+
+/* S screen form:
+/* grid search field -> 1fr (1 column)
+/*
+/* S screen table: 
+/* acco info (left) =  1 column.
+/* datum info (right) = 1 column (onder acco info). Data per 1w + nav next/prev w.
+*/
