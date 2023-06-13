@@ -1,5 +1,138 @@
 <%- include('./partials/head.ejs') %>
 
-<h1>Hello world</h1>
+<h1>Beschikbaarheid Accommodaties Sportiek</h1>
+
+
+<!-- 🔍 FORM: SEARCH AVAILABILITY (EMPTY STATE) -->
+
+<div class="wrapper-form-availability">                     <!-- wraps everything form-related -->
+    <form action="" method="get" class="form-availability"> <!-- use POST instead of GET?  -->
+        <div class="wrapper-form-fields">                   <!-- wraps all search fields of form (NOT submit button) -->
+
+            <div class="search-field" class="wrapper-ski-area">
+                <label for="ski-area">Skigebied </label>
+                <input list="ski-areas" id="ski-area" name="ski-area" placeholder="Bijv. Les Sibelles"/>
+                <datalist id="ski-areas">
+                    <option value="Les Sibelles"></option>
+                    <option value="Skigebied 2"></option>
+                    <option value="Skigebied 3"></option>
+                </datalist>
+            </div>
+
+            <div class="search-field" class="wrapper-village">
+                <label for="village">Dorp </label>
+                <input type="text" name="village" id="village" placeholder="Bijv. St. Sorlin d'Arves">
+                <!-- <datalist></datalist> -->
+            </div>
+
+            <div class="search-field" class="wrapper-accommodation">
+                <label for="accommodation">Accommodatie </label>
+                <input type="text" name="accommodation" id="accommodation" placeholder="Bijv. L'Oree des Pistes">
+                <!-- <datalist></datalist> -->
+            </div>
+
+            <div class="search-field" class="wrapper-nr-of-guests">
+                <label for="number-of-guests">Aantal personen </label>
+                <input type="text" name="number-of-guests" id="number-of-guests" placeholder="Bijv. 4">
+                <!-- <datalist></datalist> -->
+            </div>
+
+            <div class="search-field" class="wrapper-nr-of-bedrooms">
+                <label for="number-of-bedrooms">Aantal slaapkamers </label>
+                <input type="text" name="number-of-bedrooms" id="number-of-bedrooms" placeholder="Bijv. 2">
+                <!-- <datalist></datalist> -->
+            </div>
+
+            <div class="search-field" class="wrapper-arrivaldate">
+                <label for="arrivaldate">Aankomstdatum</label>
+                <input type="date" name="arrivaldate" id="arrivaldate" required>
+                <!-- <datalist></datalist> -->
+            </div>
+        </div>
+
+        <div class="wrapper-search-button">
+            <input type="submit" value="Zoeken">
+        </div>
+
+    </form>
+</div>
+
+<!-- 📊 DISPLAY SEARCH RESULTS (IDEAL STATE) -->
+
+<div class="wrapper-table-search-results"> <!-- wraps table for styling -->
+    <section class="table-search-results"> <!-- wraps the 2 tables (left/right) in one -->
+
+        <!-- Left side of table: accommodation information -->
+        <table class="search-results-accommodation-info" border="1" cellspacing="1" cellpadding="1">
+
+            <thead><!-- Will show accommodation information (fetch data from API - use get?)-->
+                <tr>
+                    <th>Skigebied</th>
+                    <th>Dorp</th>
+                    <th>Accommodatie</th> <!-- API = complex_name -->
+                    <th>Kamertype</th>
+                    <th>Max. aantal personen</th>
+                    <th>Aantal slaapkamers</th> <!--API = bedrooms -->
+                </tr>
+            </thead>
+
+            <tbody> <!-- Will show accommodation details (fetch data from API - use get?) -->
+                
+                <tr>
+                    <td>data</td> 
+                    <td>data</td> 
+                    <td>data</td>
+                    <td>data</td> 
+                    <td>data</td> 
+                    <td>data</td> 
+                </tr>
+
+            </tbody>
+
+        </table>
+        
+        <!-- Right side of table: dates -->
+        <table class="search-results-accommodation-dates" border="1" cellspacing="0" cellpadding="0" >
+
+            <thead>
+                <tr>
+                    <th>23-12-2023</th> <!--departureDate -->
+                    <th>30-12-2023</th> <!--departureDate -->
+                    <th>06-01-2024</th> <!--departureDate -->
+                    <th>13-01-2024</th> <!--departureDate -->
+                    <!-- More date options: hidden? -->
+                </tr>
+            </thead>
+
+            <tbody><!-- Will show availability data from API -->
+                <tr>
+                    <td>3</td> <!-- Availability W1 -->
+                    <td>0</td> <!-- Availability W2 -->
+                    <td>15</td> <!-- Availability W3 -->
+                    <td>4</td> <!-- Availability W4 -->
+                    <!-- Same number of date options: hidden? -->
+                </tr>
+            </tbody>
+
+        </table>
+ 
+    </section>
+</div>
+
+<!-- ASIDE: CHANGE SEARCH-->
+
+<!-- LOADING STATE -->
+
+<!-- ERROR STATE -->
+
+
+    
+
+
 
 <%- include('./partials/foot.ejs') %>
+
+
+
+
+
