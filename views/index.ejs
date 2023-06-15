@@ -1,7 +1,6 @@
 <%- include('./partials/head.ejs') %>
 
-<h1>Beschikbaarheid Accommodaties Sportiek</h1>
-
+<h1>Beschikbaarheid Accommodaties</h1>
 
 <!-- 🔍 FORM: SEARCH AVAILABILITY (EMPTY STATE) -->
 
@@ -67,25 +66,27 @@
 
             <thead><!-- Will show accommodation information (fetch data from API - use get?)-->
                 <tr>
-                    <th>Skigebied</th>
-                    <th>Dorp</th>
-                    <th>Accommodatie</th> <!-- API = complex_name -->
-                    <th>Kamertype</th>
-                    <th>Max. aantal personen</th>
-                    <th>Aantal slaapkamers</th> <!--API = bedrooms -->
+                    <th class="acco-item">Skigebied</th>                    <!-- second API -->
+                    <th class="acco-item">Dorp</th>                         <!-- second API -->
+                    <th class="acco-item">Accommodatie</th>                 <!-- API = complex_name -->
+                    <th class="acco-item">Kamertype</th>                    <!-- API = accomodatie_description-->
+                    <th class="hidden-acco-item">Max. aantal personen</th>  <!-- API = numberOfBeds -->
+                    <th class="hidden-acco-item">Aantal slaapkamers</th>    <!--API = bedrooms -->
                 </tr>
             </thead>
 
             <tbody> <!-- Will show accommodation details (fetch data from API - use get?) -->
-                
-                <tr>
-                    <td>data</td> 
-                    <td>data</td> 
-                    <td>data</td>
-                    <td>data</td> 
-                    <td>data</td> 
-                    <td>data</td> 
-                </tr>
+
+                <% accomodations.forEach(accomodation=> { %>
+                    <tr>
+                        <td class="acco-item">data</td>                                               <!-- Skigebied -->
+                        <td class="acco-item">data</td>                                               <!-- Dorp -->
+                        <td class="acco-item"><%= accomodation[0].complex_name %></td>                <!-- Accommodatie -->
+                        <td class="acco-item"><%= accomodation[0].accomodatie_description %></td>     <!-- Kamertype --> 
+                        <td class="hidden-acco-item"><%= accomodation[0].numberOfBeds %></td>         <!-- Max. guests / nr. of beds --> <!--hidden except when searched for specifically? --> 
+                        <td class="hidden-acco-item"><%= accomodation[0].bedrooms %></td>             <!-- Aantal slaapkamers -->        <!--hidden except when searched for specifically? -->         
+                    </tr>
+                <% }); %>
 
             </tbody>
 
@@ -94,13 +95,19 @@
         <!-- Right side of table: dates -->
         <table class="search-results-accommodation-dates" border="1" cellspacing="0" cellpadding="0" >
 
-            <thead>
+            <thead><!-- Will show weeks of  -->
                 <tr>
-                    <th>23-12-2023</th> <!--departureDate -->
-                    <th>30-12-2023</th> <!--departureDate -->
-                    <th>06-01-2024</th> <!--departureDate -->
-                    <th>13-01-2024</th> <!--departureDate -->
-                    <!-- More date options: hidden? -->
+                    <th>25-11-2023</th> <!--departureDate -->
+                    <th>02-12-2023</th>
+                    <th>09-12-2023</th>
+                    <th>16-12-2023</th>
+                    <th>23-12-2023</th> 
+                    <th>30-12-2023</th> 
+                    <th>06-01-2024</th> 
+                    <th>13-01-2024</th> 
+                    <th>20-01-2024</th>
+                    <th>27-02-2024</th>
+                    <th>03-02-2024</th>
                 </tr>
             </thead>
 
