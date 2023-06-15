@@ -133,6 +133,14 @@ table {
     padding: 2rem;
 }
 
+:is(td):has(.hidden-acco-item) {
+    display: none;
+}
+
+.hidden-acco-item {
+    display: none;
+}
+
 /* .wrapper-table-search-results {} */
 
 .table-search-results {
