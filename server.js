@@ -25,12 +25,33 @@ server.use(express.static("public"));
 server.get("/", async function (request, response) {
   // const [data1, data2, data3] = await Promise.all(urls.map(fetchJson));
   // const data = { data1: null, data2: null, data3: null };
+
   fetchJson(sportiekUrl).then((data) => {
+
+    const allIds = [...new Set(data.map(item => item.accomodationId))]
     console.log(data);
 
-    response.render("index", { data: data });
+    const accomodations = []
+    console.log(accomodations)
+
+    allIds.forEach(id => {
+      const rows = data.filter(item => {
+        return item.accomodationId === id;
+      })
+
+      if (rows.length) {
+        accomodations[id] = rows
+      }
+    })
+
+    response.render("index", { data, accomodations: accomodations })
+
   });
-});
+})
+
+
+
+
 
 server.listen(port, () => {
   console.log("listening on http://localhost:" + port);
@@ -41,3 +62,4 @@ async function fetchJson(url) {
     .then((response) => response.json())
     .catch((error) => error);
 }
+
