@@ -19,8 +19,8 @@
 --color-text: rgba(11, 43, 123, 1);                 /* lch(20.07% 52.14 288.21) */
 --color-light-text: rgb(255, 255, 255);            /*lch (100% 0 0)*/
 
---color-available:rgb(150, 207, 74);                /* lch(77.24% 66.92 120.86)*/
---color-unavailable:rgb(254, 0, 0);                 /* lch(54.08% 106.52 40.86) */
+--color-available:rgb(166, 206, 114);                /* lch(77.24% 66.92 120.86)*/
+--color-unavailable:rgba(231, 123, 123, 0.815);                 /* lch(54.08% 106.52 40.86) */
 
 /* custom properties : text */ 
 --text-p-font-size: font-size: 16px;
@@ -59,7 +59,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1em 2em;
+    padding: 0.5em 2em;
     background-color: var(--color-light-text);
 }
 
@@ -116,47 +116,129 @@ header a:hover {
 
 /* 📊 SEARCH RESULT TABLE */
 
-table {
-    width:100%;
-    height: auto;
-    margin: 2rem 0;
+.outer-wrapper-tables {
+    max-width: fit-content;
+    max-height: fit-content;
+    margin: 1rem 2rem 0 2rem;
+}
+
+.wrapper-tables {
+    border: 2px solid var(--color-light-text);
+    display: grid;
+    grid-template-columns: 45% 55%;
+    /* align-content: baseline; */
+    overflow: hidden;
+    box-shadow: 0 0 50px rgba(76, 76, 76, 0.221);
+}
+
+/* left table */
+
+.outer-wrapper-table-left {
+    /* border: 2px solid hotpink; */
+    /* max-width: fit-content; */
+}
+
+.wrapper-table-left {
+    /* border: 2px solid rebeccapurple; */
+    max-width: 100%;
+    overflow-x: scroll;
+}
+
+.left-table {
+    /* border: 2px solid lightpink; */
+    border-collapse:collapse;
+    table-layout: fixed;
+    color: var(--color-text);
+    } 
+
+/* .thead-left {}  laat geen border zien */
+
+.left-th-item {
     background-color: var(--color-light-text);
-    border-top-width: 1px;
-    border-bottom-width: 1px;
-    border-left-width: 1px;
-    border-right-width: 1px;
-    -webkit-border-horizontal-spacing: 1px;
-    -webkit-border-vertical-spacing: 1px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    padding: 1rem;
+    height: 3.5rem;
+    text-align: left;
 }
 
-:is(thead, tbody):has(tr, th, td) {
-    padding: 2rem;
+#left-th-roomtype {
+    min-width: 350px;
 }
 
-:is(td):has(.hidden-acco-item) {
-    display: none;
+#left-th-accommodation {
+    min-width: 300px;
 }
 
-.hidden-acco-item {
-    display: none;
+/* .tbody-left {} laat geen border zien */
+
+.left-td-item {
+    background-color: var(--background-color);
+    border: 2px solid var(--color-light-text);
+    padding: 0.5rem;
+    width: 50%;
+    min-width: 2rem;
+    height: 3.5rem;
 }
 
-/* .wrapper-table-search-results {} */
+/* right table */
 
-.table-search-results {
-    container-type: size;
-    display: flex;
-    flex-direction: row;
+.outer-wrapper-table-right {
+    /* border:2px solid darkgreen; */
 }
 
-.search-results-accommodation-dates {
-    margin-right: 2rem;
+.wrapper-table-right {
+    /* border: 2px solid lightgreen; */
+    max-width: 100%;
+    overflow-x: scroll;
+    /* scroll-snap-type: x mandatory;
+    scroll-behavior: smooth; */
+    scrollbar-color: var(--color-highlights);
+    scrollbar-width: thin;
 }
 
-.search-results-accommodation-info {
-    margin-left: 2rem;
+.right-table {
+    /* border: 2px solid yellow; */
+    /* width: 100%; */
+    table-layout: fixed;
+    border-collapse:collapse;
+    color: var(--color-text);
+    overflow: scroll;
 }
 
+.right-th-item {
+    background-color: var(--color-light-text);
+    position: sticky;
+    top: 0;
+    padding: 1rem;
+    width: 50%;
+    min-width: 2rem;
+    height: 3.5rem;
+    /* width: 10%;
+    min-width: 200px;
+    height: 3.5rem; */
+}
+
+.right-td-item {
+    border: 2px solid var(--color-light-text);
+    padding: 1rem;
+    width: 50%;
+    min-width: 2rem;
+    height: 3.5rem;
+    /* min-width: 200px;
+    height: 3.5rem; */
+    
+}
+
+#td-available {
+    background-color: var(--color-available);
+    /* scale: 0.8; */
+}
+
+#td-unavailable {
+    background-color: var(--color-unavailable);
+}
 
 
 
