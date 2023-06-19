@@ -79,17 +79,13 @@ header a:hover {
 
 /*  🔍 FORM: SEARCH AVAILABILITY */
 
-/* .wrapper-form-availability{} */
-
-/* .form-availability {} */
-
 .wrapper-form-fields:has(.search-field) {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     padding: 1rem;
     grid-gap: 1rem;
     text-align: center;
-    padding: 20px;
+    padding: 2rem;
 }
 
 .form-availability div {
@@ -97,6 +93,21 @@ header a:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.search-field input {
+    padding: 0.3rem;
+}
+
+.search-field input:hover {
+    scale: 1.1;
+}
+
+.search-field label {
+    color: var(--color-text);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
 }
 
 .wrapper-search-button input {
@@ -115,6 +126,30 @@ header a:hover {
 
 
 /* 📊 SEARCH RESULT TABLE */
+
+.sort-results-table {
+    margin: 1rem 2rem 0 2rem;
+}
+
+.sort-results-table h2 {
+    margin-bottom: 1.2rem;
+    color: var(--color-text);
+}
+
+.sort-results-table a {
+    background-color: var(--color-text);
+    color: var(--color-light-text);
+    text-decoration: none;
+    padding: 10px 16px;
+    font-size: 14px;
+    line-height: 1.3333333;
+}
+
+.sort-results-table a:hover{
+    border: solid 1px var(--color-text);
+    background-color: var(--color-light-text);
+    color: var(--color-text);
+}
 
 .outer-wrapper-tables {
     max-width: fit-content;
