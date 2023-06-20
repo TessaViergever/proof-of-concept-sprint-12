@@ -17,8 +17,11 @@
 <!-- Bij Beschrijving staat kort beschreven wat voor project het is en wat je hebt gemaakt -->
 Sportiek is een wintersport aanbieder. Deze website is een dashboard voor de medewerkers van Sportiek om sneller en efficiënter de beschikbaarheid van accommodaties op te kunnen vragen. 
 
-<!-- Voeg een mooie poster visual toe 📸 -->
-<!-- Voeg een link toe naar Github Pages 🌐-->
+![image](https://github.com/TessaViergever/proof-of-concept-sprint-12/assets/112861180/2b55a0c6-0843-4e92-ad20-1fdc45044105)
+
+
+
+ 🌐 https://cloudy-jeans-frog.cyclic.app/
 
 ## 🖥️Gebruik
 <!-- Bij Gebruik staat de user story, hoe het werkt en wat je er mee kan. -->
