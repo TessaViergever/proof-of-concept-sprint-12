@@ -1,40 +1,28 @@
 // Import the required modules
 import express from "express";
+import dotenv from 'dotenv';
 
 // Create a new Express server
 const server = express();
+dotenv.config();
 const port = process.env.PORT || 4242;
 
 // PHP URL data Sportiek
-// const sportiekUrl1 = "https://www.sportiek.com/feed/wintersport1.php"; // PHP1: Dorp & skigebied 
-// const sportiekUrl2 = "https://www.sportiek.com/feed/wintersport2.php"; // PHP2: Datums, accommodatie info
-// https://www.sportiek.com/feed/wintersport2.php?page=3, ?page=4, ?page=5 
-
-// Snippet of data (Sportiek PHP URL = slow)
-// https://raw.githubusercontent.com/DikkeTimo/proof-of-concept-Sportiek/main/json/localjssportiek.json
-
 const sportiekUrl1 = "https://www.sportiek.com/feed/wintersport1.php"; // PHP1: Dorp & skigebied 
-const sportiekUrl2 = "https://www.sportiek.com/feed/wintersport2.php"; // PHP2: Datums, accommodatie info
+const sportiekUrl2 = "https://raw.githubusercontent.com/DikkeTimo/proof-of-concept-Sportiek/main/json/localjsonsportiek.json"; // PHP2: Datums, accommodatie info
+// https://www.sportiek.com/feed/wintersport2.php?page=3, ?page=4, ?page=5 
 
 const dataSportiek = [[sportiekUrl1], [sportiekUrl2]];
 const [data1, data2] = await Promise.all(dataSportiek.map(fetchJson));
-const data = { data1, data2 };
 
-// Randomised data - trial
-// function getRandomInt(max) {
-//   return Math.floor(Math.random() * max);
-// }
+const dorpen = {}
+const skigebieden = {}
 
-// // possible availability of accommodations
-// const possibleAvailability = ['1', '2', '3', '4', '5','6', '7', '8', '9', '10','11', '12', '13', '14', '15', ]
-// const maxFromPossibleAvailability = possibleAvailability.length - 1
+data1.forEach(accommodations => {
+  dorpen[accommodations.accomodationId] = accommodations.dorp
+  skigebieden[accommodations.accomodationId] = accommodations.skigebied
+})
 
-// data.accomodation.departureDates.forEach(function(availability) {
-//   if (!departureDate.skiSeason) {
-//     availability.accomodationAvailability = []
-//     availability.accomodationAvailability.push(possibleAvailability[getRandomInt(maxFromPossibleAvailability)])
-//   }
-// })
 
 // Set EJS as the template engine and specify the views directory
 server.set("view engine", "ejs");
@@ -50,22 +38,18 @@ server.listen(port, () => {
   console.log("listening on http://localhost:" + port);
 });
 
-server.get("/", async function (request, response) {
-  response.render("index", { data, filterData: filterData })
-})
 
-
-// iets met API data 
-const filterData = data2.reduce((acc, item) => { // hoe: data1 hier ook bij?
-  const existingItem = acc.find((el) => el.variantName === item.variantName);
+// API data 
+const filterData = data2.reduce((acc, item) => { 
+const existingItem = acc.find((el) => el.variantName === item.variantName);
 
   if (existingItem) {
-    // Voeg de huidige datum alleen toe als deze nog niet in de bestaande item is opgenomen
+    // Only add new date if it's not yet in the list of date items
     if (!existingItem.departureDates.includes(item.departureDate)) {
-      existingItem.departureDates.push(item.departureDate);
+          existingItem.departureDates.push(item.departureDate);
     }
   } else {
-    // Voeg een nieuw item toe met de huidige variantName en datum
+    // Add new item with current variantName and date 
     acc.push({
       accomodationId: item.accomodationId,
       departurePricePersons: item.departurePricePersons,
@@ -74,8 +58,9 @@ const filterData = data2.reduce((acc, item) => { // hoe: data1 hier ook bij?
       accomodatie_description: item.accomodatie_description,
       numberOfBeds: item.numberOfBeds,
       bedrooms: item.bedrooms,
-      // skigebied: skigebied,
-      // dorp: dorp,
+      number: item.number,
+      skigebied: skigebieden[item.accomodationId],
+      dorp: dorpen[item.accomodationId],
       departureDates: [item.departureDate]
     });
   }
@@ -83,12 +68,30 @@ const filterData = data2.reduce((acc, item) => { // hoe: data1 hier ook bij?
   return acc;
 }, []);
 
-console.log(filterData)
 
 
-//sort function
+// unique 
+// const complexnamen = []
+// const beds = []
+// const bedrooms = []
+
+// data.forEach(datadingetje => {
+//   if (!complexnamen.includes(datadingetje.complex_name)) {
+//     complexnamen.push(datadingetje.complex_name)
+//   }
+//   if (!beds.includes(datadingetje.numberOfBeds)) {
+//     beds.push(datadingetje.numberOfBeds)
+//   }
+//   if (!bedrooms.includes(datadingetje.bedrooms)) {
+//     if (datadingetje.bedrooms != null){
+//     bedrooms.push(datadingetje.bedrooms)
+//   }}
+// })
+
+
+// Sort function
 function sortData(sort_property){
-  data.sort(function (a, b) {
+  filterData.sort(function (a, b) {
     if (a[sort_property] < b[sort_property]) {
       return -1
     }
@@ -99,18 +102,20 @@ function sortData(sort_property){
   })
 }
 
- // filter function
-  // function filterData(filter_property){
-  //   const filteredData = data.filter(data => data.filter_property == filter_property)
-  // }
 
-//route
+// Filter function
+// function dataFilter(filter, value){
+//   console.log(filter, value)
+//   return data.filter(a => a[filter] == value)
+// }
+
+// Routes
 server.get("/", async function (request, response) {
   let sort = request.query.sort || "complex_name"
-  let complex_name = request.query.complex_name 
+  // let complex_name = request.query.complex_name 
   sortData(sort)
-  filterData(complex_name)
-  response.render("index", { data: data, data2: data2})
+  // dataFilter(complex_name)
+  response.render("index", { filterData: filterData, data2: data2, dorpen: dorpen, skigebieden: skigebieden,})
 })
 
 async function fetchJson(url) {
