@@ -1,10 +1,10 @@
 // Import the required modules
 import express from "express";
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 
 // Create a new Express server
 const server = express();
-dotenv.config();
+// dotenv.config();
 const port = process.env.PORT || 4242;
 
 // PHP URL data Sportiek
