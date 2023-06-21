@@ -6,15 +6,16 @@
 <%
 let datums = []
 filterData.forEach(accomodation=> {
-
     accomodation.departureDates.forEach(departureDate => {
         if (!datums.includes(departureDate)){
             datums.push(departureDate)
         }
     })
 })
-console.log(datums)
 %>
+
+
+
 
 <h1>Beschikbaarheid Accommodaties</h1>
 
@@ -44,7 +45,7 @@ console.log(datums)
                 </datalist>
             </div>
 
-            <div class="search-field" class="wrapper-accommodation">
+            <div class="search-field wrapper-accommodation">
                 <label for="accommodation">Accommodatie </label>
                 <input list="accommodations" name="accommodation" id="accommodation" placeholder="Bijv. L'Oree des Pistes" >
                 <datalist id="accommodations"><!-- nog instellen elke acco maar 1x -->
@@ -76,23 +77,27 @@ console.log(datums)
                 </datalist>
             </div>
 
-            <div class="search-field" class="wrapper-nr-of-bedrooms">
+            <div class="search-field wrapper-nr-of-bedrooms">
                 <label for="number-of-bedrooms">Aantal slaapkamers </label>
-                <!-- <input type="text" name="number-of-bedrooms" id="number-of-bedrooms" placeholder="Bijv. 2"> -->
                 <input list="number-bedrooms" name="number-of-bedrooms" id="number-of-bedrooms" placeholder="Bijv. 2">
                 <datalist id="number-bedrooms">
-                    <% filterData.forEach(accomodation=> { %>
-                    <option value="<%= accomodation.bedrooms %>"></option> <% }); %> <!-- nog instellen elk nummer maar 1x -->
+                    <% const uniqueBedrooms = new Set();
+                        filterData.forEach(accommodation => {
+                            uniqueBedrooms.add(accommodation.bedrooms);
+                            })%>
+                            <% Array.from(uniqueBedrooms).forEach(bedroom => {  %>
+                    <option value="<%= bedroom %>"></option>
+                    <% }) %>
                 </datalist>
             </div>
 
-            <div class="search-field" class="wrapper-arrivaldate">
+            <div class="search-field wrapper-arrivaldate">
                 <label for="arrivaldate">Aankomstdatum</label>
                 <input list="arrivaldates" id="arrivaldate" name="arrivaldate" placeholder="Bijv. 25-11-2023"/>
                 <datalist id="arrivaldates">
                     <% datums.forEach(datum=> { %>
                         <option value="<%= datum %>"></option> 
-                    <% }); %>
+                    <% }) %>
                 </datalist>
             </div>
         </div>
@@ -124,8 +129,8 @@ console.log(datums)
                 <table class="left-table"><!--  wraps left table content -->
                     <thead class="thead-left"><!-- head of table -->
                         <tr><!-- tr = table row --> 
-                            <th class="left-th-item">Skigebied</th>                     
-                            <th class="left-th-item">Dorp</th>                       
+                            <th class="left-th-item" id="left-th-skigebied">Skigebied</th>                     
+                            <th class="left-th-item" id="left-th-dorp">Dorp</th>                       
                             <th class="left-th-item" id="left-th-accommodation">Accommodatie</th>                
                             <th class="left-th-item" id="left-th-roomtype">Kamertype</th>                    
                             <th class="left-th-item">Max. aantal personen</th>         
@@ -136,8 +141,8 @@ console.log(datums)
                     <tbody class="tbody-left">
                         <% filterData.forEach(accomodation=> { %>
                             <tr>
-                                <td class="left-td-item"></td>                                            
-                                <td class="left-td-item"></td>                                            
+                                <td class="left-td-item"><%= accomodation.skigebied %></td>                                           
+                                <td class="left-td-item"><%= accomodation.dorp %></td>                                       
                                 <td class="left-td-item"><%= accomodation.complex_name %></td>               
                                 <td class="left-td-item"><%= accomodation.accomodatie_description %></td>    
                                 <td class="left-td-item"><%= accomodation.numberOfBeds %></td>    
@@ -160,100 +165,101 @@ console.log(datums)
                             </tr>
                         </thead>
 
+
                         <tbody>
                             <% filterData.forEach(accomodation=> { %>
                             <tr>
                                 <% if (accomodation.departureDates.includes('25-11-2023')) { %>
-                                <td class="right-td-item" id="td-available"></td><% } else { %>
-                                <td class="right-td-item" id="td-unavailable"></td><% } %>
+                                <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                <td class="right-td-item" id="td-unavailable">0</td><% } %>
 
                                 <% if (accomodation.departureDates.includes('02-12-2023')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %>
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %>
 
                                 <% if (accomodation.departureDates.includes('09-12-2023')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('16-12-2023')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('23-12-2023')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('30-12-2023')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('06-01-2024')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('13-01-2024')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('20-01-2024')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('27-02-2024')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('03-02-2024')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('10-02-2024')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('17-02-2024')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('24-02-2024')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('02-03-2024')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('09-03-2024')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('16-03-2024')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %>
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %>
                                 
                                 <% if (accomodation.departureDates.includes('23-03-2024')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('30-03-2024')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('06-04-2024')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('13-04-2024')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('20-04-2024')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                                 <% if (accomodation.departureDates.includes('27-04-2024')) { %>
-                                    <td class="right-td-item" id="td-available"></td><% } else { %>
-                                    <td class="right-td-item" id="td-unavailable"></td><% } %> 
+                                    <td class="right-td-item" id="td-available"><%= accomodation.number %></td><% } else { %>
+                                    <td class="right-td-item" id="td-unavailable">0</td><% } %> 
 
                             </tr>
                             <% }); %>

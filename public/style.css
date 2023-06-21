@@ -198,6 +198,14 @@ header a:hover {
     text-align: left;
 }
 
+#left-th-dorp {
+    min-width: 100px;
+}
+
+#left-th-skigebied {
+    min-width: 250px;
+}
+
 #left-th-roomtype {
     min-width: 350px;
 }
@@ -248,11 +256,8 @@ header a:hover {
     top: 0;
     padding: 1rem;
     width: 50%;
-    min-width: 2rem;
+    min-width: 3rem;
     height: 3.5rem;
-    /* width: 10%;
-    min-width: 200px;
-    height: 3.5rem; */
 }
 
 .right-td-item {
