@@ -40,7 +40,7 @@ server.listen(port, () => {
 
 
 // API data 
-const filterData = data2.reduce((acc, item) => { 
+let filterData = data2.reduce((acc, item) => { 
 const existingItem = acc.find((el) => el.variantName === item.variantName);
 
   if (existingItem) {
@@ -104,19 +104,36 @@ function sortData(sort_property){
 
 
 // Filter function
-// function dataFilter(filter, value){
-//   console.log(filter, value)
-//   return data.filter(a => a[filter] == value)
-// }
+function dataFilter(filter){
+  return filterData.filter(a => {
+    for (const key in filter) {
+      if (typeof a[key] === "number") a[key] = `${a[key]}`
+      if (a[key] !== filter[key]) return false
+    }
+    return true
+  })
+}
 
 // Routes
 server.get("/", async function (request, response) {
+  let { query } = request
+  for (const key in query) {
+    if (query[key] === '') delete query[key]
+  }
+  console.log(query);
+
   let sort = request.query.sort || "complex_name"
   // let complex_name = request.query.complex_name 
   sortData(sort)
-  // dataFilter(complex_name)
-  response.render("index", { filterData: filterData, data2: data2, dorpen: dorpen, skigebieden: skigebieden,})
+  let result = dataFilter(query)
+  response.render("index", { filterData: result, data2: data2, dorpen: dorpen, skigebieden: skigebieden,})
 })
+
+// server.post("/", (request, response) => {
+//   let filter = request.body
+//   let result = dataFilter(filter)
+//   response.render("index", { filterData: result.length > 0 ? result : filterData, data2: data2, dorpen: dorpen, skigebieden: skigebieden,})
+// })
 
 async function fetchJson(url) {
   return await fetch(url)

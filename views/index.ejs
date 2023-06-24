@@ -14,20 +14,17 @@ filterData.forEach(accomodation=> {
 })
 %>
 
-
-
-
 <h1>Beschikbaarheid Accommodaties</h1>
 
 <!-- 🔍 FORM: SEARCH AVAILABILITY (EMPTY STATE) -->
 
 <div class="wrapper-form-availability">                     <!-- wraps everything form-related -->
-    <form action="" method="get" class="form-availability"> <!-- use POST instead of GET?  -->
+    <form action="/" method="get" class="form-availability"> <!-- use POST instead of GET?  -->
         <div class="wrapper-form-fields">                   <!-- wraps all search fields of form (NOT submit button) -->
 
             <div class="search-field" class="wrapper-ski-area">
-                <label for="ski-area">Skigebied </label>
-                <input list="ski-areas" id="ski-area" name="ski-area" placeholder="Bijv. Les Sibelles"/>
+                <label for="skigebied">Skigebied </label>
+                <input class="search-field__input" list="ski-areas" id="skigebied" name="skigebied" placeholder="Bijv. Les Sibelles"/>
                 <datalist id="ski-areas">
                     <option value="Les Sibelles"></option>
                     <option value="Skigebied 2"></option>
@@ -36,8 +33,8 @@ filterData.forEach(accomodation=> {
             </div>
 
             <div class="search-field" class="wrapper-village">
-                <label for="village">Dorp </label>
-                <input list="villages" name="village" id="village"  placeholder="Bijv. St. Sorlin d'Arves" >
+                <label for="dorp">Dorp </label>
+                <input class="search-field__input" list="villages" name="dorp" id="dorp"  placeholder="Bijv. St. Sorlin d'Arves" >
                 <datalist id="villages"><!-- dorp uit API inladen -->
                         <option>St. Sorlin d'Arves</option> 
                         <option>St. Sorlin d'Arves</option> 
@@ -46,8 +43,8 @@ filterData.forEach(accomodation=> {
             </div>
 
             <div class="search-field wrapper-accommodation">
-                <label for="accommodation">Accommodatie </label>
-                <input list="accommodations" name="accommodation" id="accommodation" placeholder="Bijv. L'Oree des Pistes" >
+                <label for="complex_name">Accommodatie </label>
+                <input class="search-field__input" list="accommodations" name="complex_name" id="complex_name" placeholder="Bijv. L'Oree des Pistes" >
                 <datalist id="accommodations"><!-- nog instellen elke acco maar 1x -->
                     <% filterData.forEach(accomodation=> { %>
                         <option value="<%= accomodation.complex_name %>"></option> 
@@ -56,8 +53,8 @@ filterData.forEach(accomodation=> {
             </div>
 
             <div class="search-field" class="wrapper-nr-of-guests">
-                <label for="number-of-guests">Aantal personen</label>
-                <input list="guests" name="number-of-guests" id="number-of-guests" placeholder="Bijv. 4">
+                <label for="numberOfBeds">Aantal personen</label>
+                <input class="search-field__input" list="guests" name="numberOfBeds" id="numberOfBeds" placeholder="Bijv. 4">
                 <datalist id="guests">
                         <option>1</option> 
                         <option>2</option> 
@@ -78,8 +75,8 @@ filterData.forEach(accomodation=> {
             </div>
 
             <div class="search-field wrapper-nr-of-bedrooms">
-                <label for="number-of-bedrooms">Aantal slaapkamers </label>
-                <input list="number-bedrooms" name="number-of-bedrooms" id="number-of-bedrooms" placeholder="Bijv. 2">
+                <label for="bedrooms">Aantal slaapkamers </label>
+                <input class="search-field__input" list="number-bedrooms" name="bedrooms" id="bedrooms" placeholder="Bijv. 2">
                 <datalist id="number-bedrooms">
                     <% const uniqueBedrooms = new Set();
                         filterData.forEach(accommodation => {
@@ -92,8 +89,8 @@ filterData.forEach(accomodation=> {
             </div>
 
             <div class="search-field wrapper-arrivaldate">
-                <label for="arrivaldate">Aankomstdatum</label>
-                <input list="arrivaldates" id="arrivaldate" name="arrivaldate" placeholder="Bijv. 25-11-2023"/>
+                <label for="departureDates">Aankomstdatum</label>
+                <input class="search-field__input" list="arrivaldates" id="departureDates" name="departureDates" placeholder="Bijv. 25-11-2023"/>
                 <datalist id="arrivaldates">
                     <% datums.forEach(datum=> { %>
                         <option value="<%= datum %>"></option> 
